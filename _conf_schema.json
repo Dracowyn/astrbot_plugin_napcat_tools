@@ -1,0 +1,100 @@
+{
+  "tools": {
+    "description": "启用的工具",
+    "type": "object",
+    "hint": "关闭的工具不会注册，LLM 看不到它，也不占上下文。保存后插件会自动重载。",
+    "items": {
+      "poke": {
+        "description": "qq_poke：戳一戳",
+        "type": "bool",
+        "default": true
+      },
+      "react_emoji": {
+        "description": "qq_react_emoji：给消息贴表情回应",
+        "type": "bool",
+        "default": true
+      },
+      "get_user_info": {
+        "description": "qq_get_user_info：查询群成员信息和资料卡",
+        "type": "bool",
+        "default": true
+      },
+      "recall_own_message": {
+        "description": "qq_recall_own_message：撤回用户引用的、Bot 自己发的消息",
+        "type": "bool",
+        "default": true
+      },
+      "stay_silent": {
+        "description": "qq_stay_silent：本轮不回复（被 @、被引用、私聊或唤醒词触发时会被拒绝）",
+        "type": "bool",
+        "default": true
+      },
+      "set_my_card": {
+        "description": "qq_set_my_card：修改 Bot 自己的群名片",
+        "type": "bool",
+        "default": false
+      },
+      "view_avatar": {
+        "description": "qq_view_avatar：查看用户头像",
+        "type": "bool",
+        "default": false,
+        "hint": "需要多模态模型，或在下方配置看图模型。"
+      },
+      "mute_member": {
+        "description": "qq_mute_member：禁言群成员（管理）",
+        "type": "bool",
+        "default": false
+      },
+      "recall_message": {
+        "description": "qq_recall_message：撤回用户引用的任意消息（管理）",
+        "type": "bool",
+        "default": false
+      },
+      "set_essence": {
+        "description": "qq_set_essence：设为精华消息（管理）",
+        "type": "bool",
+        "default": false
+      },
+      "set_member_card": {
+        "description": "qq_set_member_card：修改他人群名片（管理）",
+        "type": "bool",
+        "default": false
+      }
+    }
+  },
+  "permission": {
+    "description": "管理工具权限",
+    "type": "object",
+    "items": {
+      "allow_group_admin": {
+        "description": "允许群主/群管理员使用管理工具",
+        "type": "bool",
+        "default": true,
+        "hint": "关闭后只有 AstrBot 管理员能让 Bot 执行管理操作。权限按触发本轮对话的发言人判断。"
+      },
+      "max_mute_minutes": {
+        "description": "单次禁言时长上限（分钟）",
+        "type": "int",
+        "default": 1440
+      }
+    }
+  },
+  "view_avatar": {
+    "description": "看头像设置",
+    "type": "object",
+    "items": {
+      "vision_provider_id": {
+        "description": "看图模型",
+        "type": "string",
+        "default": "",
+        "_special": "select_provider",
+        "hint": "配置后一律由该模型把头像描述成文字；留空则把图片直接交给当前对话模型。"
+      },
+      "vision_prompt": {
+        "description": "看图提示词",
+        "type": "text",
+        "default": "Describe this QQ avatar image concisely: what it shows, its style and mood."
+      }
+    }
+  }
+}
