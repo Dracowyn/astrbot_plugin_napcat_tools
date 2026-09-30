@@ -2,7 +2,7 @@ name: astrbot_plugin_napcat_tools
 display_name: NapCat 工具集
 desc: 让 LLM 在 QQ 里戳一戳、贴表情回应、查资料、撤回、保持沉默，以及可选的禁言/设精华等群管操作。只注册 LLM 工具，不挂事件钩子、不改回复格式。
 short_desc: 给 LLM 用的 QQ（NapCat）操作工具
-version: v0.1.0
+version: v0.1.1
 author: Dracowyn
 repo: https://github.com/Dracowyn/astrbot_plugin_napcat_tools
 support_platforms:

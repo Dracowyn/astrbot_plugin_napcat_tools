@@ -88,7 +88,7 @@
         "type": "string",
         "default": "",
         "_special": "select_provider",
-        "hint": "配置后一律由该模型把头像描述成文字；留空则把图片直接交给当前对话模型。"
+        "hint": "配置后一律由该模型把头像描述成文字。留空时使用 AstrBot 通用设置里的「默认图片转述模型」；两者都没配置，才把图片直接交给当前对话模型。"
       },
       "vision_prompt": {
         "description": "看图提示词",

@@ -323,7 +323,12 @@ class NapCatToolkit:
         """
         qq = await resolve_user(event, user)
         url = AVATAR_URL.format(qq=qq)
-        provider_id = self.avatar_config.get("vision_provider_id", "")
+        # Fall back to AstrBot's global image caption provider.
+        provider_id = self.avatar_config.get("vision_provider_id") or (
+            self.context.get_config(umo=event.unified_msg_origin)
+            .get("provider_settings", {})
+            .get("default_image_caption_provider_id", "")
+        )
         if provider_id:
             provider = self.context.get_provider_by_id(provider_id)
             if provider is None:

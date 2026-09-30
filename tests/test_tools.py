@@ -382,8 +382,11 @@ async def test_set_essence_and_member_card():
 # --- view_avatar -----------------------------------------------------------------
 
 
-def avatar_tool(provider_id="", modalities=None, vision_resp=None):
+def avatar_tool(provider_id="", modalities=None, vision_resp=None, caption_id=""):
     context = MagicMock()
+    context.get_config.return_value = {
+        "provider_settings": {"default_image_caption_provider_id": caption_id}
+    }
     vision = MagicMock()
     vision.text_chat = AsyncMock(
         return_value=vision_resp
@@ -405,6 +408,15 @@ async def test_view_avatar_with_vision_model():
     err = SimpleNamespace(role="err", completion_text="quota")
     tool, _ = avatar_tool(provider_id="vision", vision_resp=err)
     assert "returned an error: quota" in await run(tool, make_event())
+
+
+@pytest.mark.asyncio
+async def test_view_avatar_falls_back_to_global_caption_provider():
+    tool, vision = avatar_tool(caption_id="caption", modalities=["text"])
+    assert (await run(tool, make_event(), user="123")).endswith("a cat")
+    context = tool.impl.__self__.context
+    context.get_provider_by_id.assert_called_once_with("caption")
+    assert "umo" in context.get_config.call_args.kwargs
 
 
 @pytest.mark.asyncio
